@@ -16,7 +16,14 @@ async  function TraerInfo(){
        }
     }
     catch (error) {
-
+        const contenedor = document.getElementById("galeria");
+        const aviso = document.createElement("div");
+        contenedor.innerHTML = `
+        <div">
+        <h3>${error}</h3>
+        </div>
+        `
+        contenedor.appendChild(aviso);
         console.error("Se produjo un error", error)
     }
 }
@@ -32,7 +39,7 @@ function cargarPlatos(data){
 
         tarjeta.innerHTML = `
         <img src="${data.meals[i].strMealThumb}" alt="Foto de ${data.meals[i].strMeal}"></img>
-          <div class="tarjeta-info">
+          <div class="tarjeta">
             <h3>${data.meals[i].strMeal}</h3>
             <p>Pais: <strong>${data.meals[i].strCountry}</strong></p>
             <p>Id: ${data.meals[i].idMeal}</p>
@@ -46,3 +53,13 @@ function cargarPlatos(data){
 var event = document.getElementById("boton");
 event.addEventListener("click", TraerInfo)
 
+function error(){
+      const contenedor = document.getElementById("galeria");
+      const aviso = document.createElement("div");
+      aviso.innerHTML = `
+      <div">
+       <h3>error</h3>
+       </div>
+      `
+      contenedor.appendChild(aviso);
+}
