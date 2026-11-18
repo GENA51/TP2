@@ -1,7 +1,5 @@
 import "./style.css";
 
-let platos = [];
-
 async  function TraerInfo(){
     try{
     const respuesta = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast")
@@ -11,23 +9,11 @@ async  function TraerInfo(){
     }
     else{
     const data = await respuesta.json();
-
-    for (let i = 0; i < data.meals.length; i++) {
-        console.log(data.meals[i].strCountry);
-        
-    }
-    //console.log(data.meals[1].strCountry);
-
-    //const platos = data.results;
     
-    //data = JSON.parse(data);
-    //data.forEach(plato => {
-    //    const titulo = `<li>${plato.strMeal}</li>`
-    //    document.getElementById(".galeria").appendChild(titulo)
-    //})
+  console.log(data);
 
-   //cargarPlatos(platos);
-    }
+   cargarPlatos(data);
+       }
     }
     catch (error) {
 
@@ -35,27 +21,28 @@ async  function TraerInfo(){
     }
 }
 
-function cargarPlatos(platos){
+function cargarPlatos(data){
+   
+    const contenedor = document.getElementById("galeria");
+    contenedor.innerHTML = "";
 
-  const contenedor = document.getElementById("galeria");
-  contenedor.innerHTML = "";
-
-       platos = JSON.parse(platos);
-       platos.forEach(plato => {
-        const tarjeta = document.createElement("div");
+    for (let i = 0; i < data.meals.length; i++) {
+      const tarjeta = document.createElement("div");
         tarjeta.classList.add("tarjeta");
 
         tarjeta.innerHTML = `
-        <img src="${plato.strMealThumb}" alt="${plato.strMeal}"></img>
+        <img src="${data.meals[i].strMealThumb}" alt="Foto de ${data.meals[i].strMeal}"></img>
           <div class="tarjeta-info">
-            <h3>${plato.strMeal}</h3>
-            <p>Pais: <strong>${plato.strCountry}</strong></p>
-            <p>Id: ${plato.idMeal}</p>
+            <h3>${data.meals[i].strMeal}</h3>
+            <p>Pais: <strong>${data.meals[i].strCountry}</strong></p>
+            <p>Id: ${data.meals[i].idMeal}</p>
             </div>
         `
-        contenedor.appendChild(tarjeta)
-        });
-};
+        contenedor.appendChild(tarjeta);
+      }
 
+}
 
-TraerInfo();
+var event = document.getElementById("boton");
+event.addEventListener("click", TraerInfo)
+
