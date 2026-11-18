@@ -1,0 +1,2 @@
+Programa el cual muestra catalogo de comida, creada por Genaro Perazzo para el 2do trabajo practico de Programacion 3, utlizando Vite para su funcionamiento y Vercel para su publicacion.
+API utilizada: "https://www.themealdb.com/"
